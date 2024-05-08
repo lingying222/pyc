@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #cursor {
+            display: inline-block;
+            width: 0.4em;
+            height: 1em;
+            margin-left: .2em;
+            background-color: black;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0% {
+                opacity: .7;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="text"></div>
+</body>
+<script>
+    let text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
+    let i = 0;
+    let element = document.getElementById('text');
+    let cursorVisible = false;
+    toggleCursor(); // 切换光标可见性
+    var tt = setTimeout(() => {
+        var timer = setInterval(function () {
+            element.innerHTML += text[i];
+            i++;
+            toggleCursor();
+            if (i >= text.length) {
+                cursorVisible = true;
+                toggleCursor();
+                clearInterval(timer);
+            }
+        }, 50);
+    }, 1500);
+
+    function toggleCursor() {
+        if (cursorVisible) {
+            element.removeChild(document.getElementById('cursor')); // 删除光标元素
+            cursorVisible = false;
+        } else {
+            element.innerHTML += '<span id="cursor"></span>'; // 添加光标元素
+            cursorVisible = true;
+        }
+    }
+</script>
+
+</html>
